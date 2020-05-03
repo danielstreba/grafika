@@ -1,0 +1,102 @@
+#ifndef SCENE_H
+#define SCENE_H
+
+#include "camera.h"
+#include "texture.h"
+
+#include <obj/model.h>
+
+struct Object
+{
+  Model model;
+  GLuint texture_id;
+};
+
+static const struct Object EmptyObject;
+
+struct ColorableObject
+{
+  Model model;
+  GLuint texture_id[2];
+};
+
+struct Tile
+{
+  struct Object object;
+  vec3 position;
+  int is_occupied;
+};
+
+struct Board
+{
+  struct Tile tile[8][8][2];
+};
+
+typedef struct Scene
+{
+  Camera camera;
+  Material material;
+
+  struct Board game_board;
+  struct Tile *current_tile;
+  
+  GLuint marble_texture_id[2];
+  GLuint skybox_texture_id[6];
+  GLuint help_texture_id;
+
+  struct ColorableObject chess_pieces[6];
+  struct Object chess_board;
+} Scene;
+
+/**
+ * Initialize the scene by loading models
+ */
+void init_scene(Scene *scene);
+
+/**
+ * Initalize the lighting of the scene
+ */
+void init_lighting();
+
+/**
+ * Initalize the current material
+ */
+void init_material(const Material *material);
+
+/**
+ * Draw the scene objects
+ */
+void draw_scene(const Scene *scene);
+
+/**
+  * Reset the scene objects
+  */
+void reset_scene(Scene *scene);
+
+/**
+ * Draw the skybox
+ */
+void draw_skybox(const GLuint *skybox_texture_id[], float x, float y, float z, float width, float height, float length);
+
+/**
+ * Load the chess pieces models and textures
+ */
+void load_chess_pieces(struct ColorableObject chess_pieces[], const char chess_pieces_object_list[6][3][50]);
+
+/**
+ * Load the skybox textures
+ */
+void load_skybox(GLuint *skybox_texture_id[], char *file_list[]);
+
+/**
+ * Draw the chess board
+ */
+void draw_board(const Scene *scene);
+
+/**
+ * Draw the chess pieces
+ */
+void draw_pieces(const Scene *scene);
+
+
+#endif /* SCENE_H */
