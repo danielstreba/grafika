@@ -133,14 +133,58 @@ void draw_pieces(const Scene *scene)
     {
       for (k = 0; k < 2; k++)
       {
-        glPushMatrix();
+        float x = scene->game_board.tile[i][j][k].position.x;
+        float y = scene->game_board.tile[i][j][k].position.y;
+        float z = scene->game_board.tile[i][j][k].position.z;
 
-        glTranslatef(scene->game_board.tile[i][j][k].position.x,
-                     scene->game_board.tile[i][j][k].position.y,
-                     scene->game_board.tile[i][j][k].position.z);
+        if (scene->current_tile->position.x == x &&
+            scene->current_tile->position.y == y &&
+            scene->current_tile->position.z == z)
+        {
+          glBegin(GL_LINES);
+          glColor3f(0.0f, 1.0f, 0.0f);
+          glVertex3f(x - 0.5f, y - 0.5f, z);
+          glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
+
+          glVertex3f(x + 0.5f, y - 0.5f, z);
+          glVertex3f(x + 0.5f, y - 0.5f, z + 2.0f);
+
+          glVertex3f(x - 0.5f, y + 0.5f, z);
+          glVertex3f(x - 0.5f, y + 0.5f, z + 2.0f);
+
+          glVertex3f(x + 0.5f, y + 0.5f, z);
+          glVertex3f(x + 0.5f, y + 0.5f, z + 2.0f);
+
+          glVertex3f(x + 0.5f, y + 0.5f, z + 2.0f);
+          glVertex3f(x - 0.5f, y + 0.5f, z + 2.0f);
+
+          glVertex3f(x + 0.5f, y + 0.5f, z);
+          glVertex3f(x - 0.5f, y + 0.5f, z);
+
+          glVertex3f(x + 0.5f, y + 0.5f, z + 2.0f);
+          glVertex3f(x + 0.5f, y - 0.5f, z + 2.0f);
+
+          glVertex3f(x + 0.5f, y + 0.5f, z);
+          glVertex3f(x + 0.5f, y - 0.5f, z);
+
+          glVertex3f(x - 0.5f, y + 0.5f, z + 2.0f);
+          glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
+
+          glVertex3f(x - 0.5f, y + 0.5f, z);
+          glVertex3f(x - 0.5f, y - 0.5f, z);
+
+          glVertex3f(x + 0.5f, y - 0.5f, z + 2.0f);
+          glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
+
+          glVertex3f(x + 0.5f, y - 0.5f, z);
+          glVertex3f(x - 0.5f, y - 0.5f, z);
+          glEnd();
+        }
+
+        glPushMatrix();
+        glTranslatef(x, y, z);
         glBindTexture(GL_TEXTURE_2D, scene->game_board.tile[i][j][k].object.texture_id);
         draw_model(&(scene->game_board.tile[i][j][k].object.model));
-
         glPopMatrix();
       }
     }
