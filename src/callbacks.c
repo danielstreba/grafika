@@ -1,9 +1,6 @@
 #include "callbacks.h"
 #include <stdio.h>
 
-#define VIEWPORT_RATIO (16.0f / 9.0f)
-#define VIEWPORT_ASPECT 45.0f
-
 struct
 {
   int x;
@@ -58,8 +55,6 @@ void reshape(GLsizei width, GLsizei height)
   gluPerspective(VIEWPORT_ASPECT, VIEWPORT_RATIO, 0.01f, 15000.0f);
 }
 
-#define GLUT_MOUSE_WHEEL_UP 3
-#define GLUT_MOUSE_WHEEL_DOWN 4
 void mouse(int button, int state, int x, int y)
 {
   if (button == GLUT_MOUSE_WHEEL_DOWN)

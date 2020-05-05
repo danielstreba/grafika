@@ -3,6 +3,12 @@
 
 #include "scene.h"
 
+#define VIEWPORT_RATIO (16.0f / 9.0f)
+#define VIEWPORT_ASPECT 45.0f
+
+#define GLUT_MOUSE_WHEEL_UP 3
+#define GLUT_MOUSE_WHEEL_DOWN 4
+
 /**
  * Scene
  */

@@ -3,17 +3,6 @@
 #include <obj/load.h>
 #include <obj/draw.h>
 
-#define KING 0
-#define QUEEN 1
-#define ROOK 2
-#define BISHOP 3
-#define KNIGHT 4
-#define PAWN 5
-#define UNDEFINED -1
-
-#define DARK 0
-#define LIGHT 1
-
 void init_lighting()
 {
   float ambient_light[] = {0.8f, 0.8f, 0.8f, 0.8f};

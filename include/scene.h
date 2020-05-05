@@ -6,6 +6,17 @@
 
 #include <obj/model.h>
 
+#define KING 0
+#define QUEEN 1
+#define ROOK 2
+#define BISHOP 3
+#define KNIGHT 4
+#define PAWN 5
+#define UNDEFINED -1
+
+#define DARK 0
+#define LIGHT 1
+
 struct Object
 {
   Model model;
