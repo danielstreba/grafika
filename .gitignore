@@ -24,7 +24,6 @@ assets/*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/c_cpp_properties.json
 *.code-workspace
 
 # Windows thumbnail cache files
