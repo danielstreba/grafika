@@ -141,8 +141,10 @@ void draw_pieces(const Scene *scene)
             scene->current_tile->position.y == y &&
             scene->current_tile->position.z == z)
         {
+          glDisable(GL_TEXTURE_2D);
+          glEnable(GL_COLOR_MATERIAL);
           glBegin(GL_LINES);
-          glColor3f(0.0f, 1.0f, 0.0f);
+          glColor3f(1.0f, 1.0f, 0.0f);
           glVertex3f(x - 0.5f, y - 0.5f, z);
           glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
 
@@ -179,6 +181,9 @@ void draw_pieces(const Scene *scene)
           glVertex3f(x + 0.5f, y - 0.5f, z);
           glVertex3f(x - 0.5f, y - 0.5f, z);
           glEnd();
+          glColor3f(1.0f, 1.0f, 1.0f);
+          glDisable(GL_COLOR_MATERIAL);
+          glEnable(GL_TEXTURE_2D);
         }
 
         glPushMatrix();
