@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "draw.h"
 
 #include <obj/load.h>
 #include <obj/draw.h>
@@ -119,81 +120,9 @@ void draw_scene(const Scene *scene)
 {
   init_material(&(scene->material));
 
-  draw_skybox(scene->skybox_texture_id, 0.0f, 0.0f, 0.0f, 500.0f, 500.0f, 500.0f);
+  draw_skybox(scene->skybox_texture_id, (vec3){.x = 0.0f, .y = 0.0f, .z = 0.0f}, 500.0f, 500.0f, 500.0f);
   draw_board(scene);
   draw_pieces(scene);
-}
-
-void draw_pieces(const Scene *scene)
-{
-  int i, j, k;
-  for (i = 0; i < 8; i++)
-  {
-    for (j = 0; j < 8; j++)
-    {
-      for (k = 0; k < 2; k++)
-      {
-        float x = scene->game_board.tile[i][j][k].position.x;
-        float y = scene->game_board.tile[i][j][k].position.y;
-        float z = scene->game_board.tile[i][j][k].position.z;
-
-        if (scene->current_tile->position.x == x &&
-            scene->current_tile->position.y == y &&
-            scene->current_tile->position.z == z)
-        {
-          glDisable(GL_TEXTURE_2D);
-          glEnable(GL_COLOR_MATERIAL);
-          glBegin(GL_LINES);
-          glColor3f(1.0f, 1.0f, 0.0f);
-          glVertex3f(x - 0.5f, y - 0.5f, z);
-          glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
-
-          glVertex3f(x + 0.5f, y - 0.5f, z);
-          glVertex3f(x + 0.5f, y - 0.5f, z + 2.0f);
-
-          glVertex3f(x - 0.5f, y + 0.5f, z);
-          glVertex3f(x - 0.5f, y + 0.5f, z + 2.0f);
-
-          glVertex3f(x + 0.5f, y + 0.5f, z);
-          glVertex3f(x + 0.5f, y + 0.5f, z + 2.0f);
-
-          glVertex3f(x + 0.5f, y + 0.5f, z + 2.0f);
-          glVertex3f(x - 0.5f, y + 0.5f, z + 2.0f);
-
-          glVertex3f(x + 0.5f, y + 0.5f, z);
-          glVertex3f(x - 0.5f, y + 0.5f, z);
-
-          glVertex3f(x + 0.5f, y + 0.5f, z + 2.0f);
-          glVertex3f(x + 0.5f, y - 0.5f, z + 2.0f);
-
-          glVertex3f(x + 0.5f, y + 0.5f, z);
-          glVertex3f(x + 0.5f, y - 0.5f, z);
-
-          glVertex3f(x - 0.5f, y + 0.5f, z + 2.0f);
-          glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
-
-          glVertex3f(x - 0.5f, y + 0.5f, z);
-          glVertex3f(x - 0.5f, y - 0.5f, z);
-
-          glVertex3f(x + 0.5f, y - 0.5f, z + 2.0f);
-          glVertex3f(x - 0.5f, y - 0.5f, z + 2.0f);
-
-          glVertex3f(x + 0.5f, y - 0.5f, z);
-          glVertex3f(x - 0.5f, y - 0.5f, z);
-          glEnd();
-          glColor3f(1.0f, 1.0f, 1.0f);
-          glDisable(GL_COLOR_MATERIAL);
-          glEnable(GL_TEXTURE_2D);
-        }
-
-        glPushMatrix();
-        glTranslatef(x, y, z);
-        glBindTexture(GL_TEXTURE_2D, scene->game_board.tile[i][j][k].object.texture_id);
-        draw_model(&(scene->game_board.tile[i][j][k].object.model));
-        glPopMatrix();
-      }
-    }
-  }
 }
 
 void reset_scene(Scene *scene)
@@ -267,120 +196,4 @@ void reset_scene(Scene *scene)
   }
 
   scene->current_tile = &scene->game_board.tile[0][0][0];
-}
-
-void draw_skybox(GLuint skybox_texture_id[], float x, float y, float z, float width, float height, float length)
-{
-  // Center the Skybox around the given x,y,z position
-  x = x - width / 2;
-  y = y - height / 2;
-  z = z - length / 2;
-
-  // Draw Front side
-  glBindTexture(GL_TEXTURE_2D, skybox_texture_id[0]);
-  glBegin(GL_QUADS);
-  glTexCoord2f(1.0f, 0.0f);
-  glVertex3f(x, y, z + length);
-  glTexCoord2f(1.0f, 1.0f);
-  glVertex3f(x, y + height, z + length);
-  glTexCoord2f(0.0f, 1.0f);
-  glVertex3f(x + width, y + height, z + length);
-  glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(x + width, y, z + length);
-  glEnd();
-
-  // Draw Back side
-  glBindTexture(GL_TEXTURE_2D, skybox_texture_id[1]);
-  glBegin(GL_QUADS);
-  glTexCoord2f(1.0f, 0.0f);
-  glVertex3f(x + width, y, z);
-  glTexCoord2f(1.0f, 1.0f);
-  glVertex3f(x + width, y + height, z);
-  glTexCoord2f(0.0f, 1.0f);
-  glVertex3f(x, y + height, z);
-  glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(x, y, z);
-  glEnd();
-
-  // Draw Left side
-  glBindTexture(GL_TEXTURE_2D, skybox_texture_id[2]);
-  glBegin(GL_QUADS);
-  glTexCoord2f(1.0f, 1.0f);
-  glVertex3f(x, y + height, z);
-  glTexCoord2f(0.0f, 1.0f);
-  glVertex3f(x, y + height, z + length);
-  glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(x, y, z + length);
-  glTexCoord2f(1.0f, 0.0f);
-  glVertex3f(x, y, z);
-  glEnd();
-
-  // Draw Right side
-  glBindTexture(GL_TEXTURE_2D, skybox_texture_id[3]);
-  glBegin(GL_QUADS);
-  glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(x + width, y, z);
-  glTexCoord2f(1.0f, 0.0f);
-  glVertex3f(x + width, y, z + length);
-  glTexCoord2f(1.0f, 1.0f);
-  glVertex3f(x + width, y + height, z + length);
-  glTexCoord2f(0.0f, 1.0f);
-  glVertex3f(x + width, y + height, z);
-  glEnd();
-
-  // Draw Up side
-  glBindTexture(GL_TEXTURE_2D, skybox_texture_id[4]);
-  glBegin(GL_QUADS);
-  glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(x + width, y + height, z);
-  glTexCoord2f(1.0f, 0.0f);
-  glVertex3f(x + width, y + height, z + length);
-  glTexCoord2f(1.0f, 1.0f);
-  glVertex3f(x, y + height, z + length);
-  glTexCoord2f(0.0f, 1.0f);
-  glVertex3f(x, y + height, z);
-  glEnd();
-
-  // Draw Down side
-  glBindTexture(GL_TEXTURE_2D, skybox_texture_id[5]);
-  glBegin(GL_QUADS);
-  glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(x, y, z);
-  glTexCoord2f(1.0f, 0.0f);
-  glVertex3f(x, y, z + length);
-  glTexCoord2f(1.0f, 1.0f);
-  glVertex3f(x + width, y, z + length);
-  glTexCoord2f(0.0f, 1.0f);
-  glVertex3f(x + width, y, z);
-  glEnd();
-}
-
-void draw_board(const Scene *scene)
-{
-  glPushMatrix();
-  glTranslatef(-0.5f, -0.5f, -0.02f);
-  glBindTexture(GL_TEXTURE_2D, scene->chess_board.texture_id);
-  draw_model(&(scene->chess_board.model));
-  glPopMatrix();
-
-  int i, j;
-  for (i = 0; i < 8; i++)
-  {
-    for (j = 0; j < 8; j++)
-    {
-      int id = (i + j) % 2;
-
-      glBindTexture(GL_TEXTURE_2D, scene->marble_texture_id[id]);
-      glBegin(GL_QUADS);
-      glTexCoord2f(1.0f, 0.0f);
-      glVertex3f(-0.5f + i, 0.5f + j, -0.01f);
-      glTexCoord2f(1.0f, 1.0f);
-      glVertex3f(0.5f + i, 0.5f + j, -0.01f);
-      glTexCoord2f(0.0f, 1.0f);
-      glVertex3f(0.5f + i, -0.5f + j, -0.01f);
-      glTexCoord2f(0.0f, 0.0f);
-      glVertex3f(-0.5f + i, -0.5f + j, -0.01f);
-      glEnd();
-    }
-  }
 }

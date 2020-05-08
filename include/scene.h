@@ -65,12 +65,12 @@ typedef struct Scene
 void init_scene(Scene *scene);
 
 /**
- * Initalize the lighting of the scene
+ * Initialize the lighting of the scene
  */
 void init_lighting();
 
 /**
- * Initalize the current material
+ * Initialize the current material
  */
 void init_material(const Material *material);
 
@@ -83,23 +83,5 @@ void draw_scene(const Scene *scene);
   * Reset the scene objects
   */
 void reset_scene(Scene *scene);
-
-/**
- * Draw the skybox
- */
-void draw_skybox(GLuint skybox_texture_id[], float x, float y, float z, float width, float height, float length);
-
-
-
-/**
- * Draw the chess board
- */
-void draw_board(const Scene *scene);
-
-/**
- * Draw the chess pieces
- */
-void draw_pieces(const Scene *scene);
-
 
 #endif /* SCENE_H */
