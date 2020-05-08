@@ -89,15 +89,7 @@ void reset_scene(Scene *scene);
  */
 void draw_skybox(GLuint skybox_texture_id[], float x, float y, float z, float width, float height, float length);
 
-/**
- * Load the chess pieces models and textures
- */
-void load_chess_pieces(struct ColorableObject chess_pieces[], const char chess_pieces_object_list[6][3][50]);
 
-/**
- * Load the skybox textures
- */
-void load_skybox(GLuint skybox_texture_id[], char *file_list[]);
 
 /**
  * Draw the chess board
