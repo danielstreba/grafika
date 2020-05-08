@@ -269,7 +269,7 @@ void reset_scene(Scene *scene)
   scene->current_tile = &scene->game_board.tile[0][0][0];
 }
 
-void draw_skybox(const GLuint *skybox_texture_id[], float x, float y, float z, float width, float height, float length)
+void draw_skybox(GLuint skybox_texture_id[], float x, float y, float z, float width, float height, float length)
 {
   // Center the Skybox around the given x,y,z position
   x = x - width / 2;
@@ -366,7 +366,7 @@ void load_chess_pieces(struct ColorableObject chess_pieces[], const char chess_p
   }
 }
 
-void load_skybox(GLuint *skybox_texture_id[], char *file_list[])
+void load_skybox(GLuint skybox_texture_id[], char *file_list[])
 {
   int i;
   for (i = 0; i < 6; i++)
