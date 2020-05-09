@@ -115,9 +115,9 @@ void init_scene(Scene *scene)
   scene->material[DARK].shininess = 32.0f;
 
   // Wood material
-  scene->wood_material.ambient = (Color){.red = 0.39453125f + 0.25f,
-                                         .green = 0.2421875f + 0.25f,
-                                         .blue = 0.1484375f + 0.25f,
+  scene->wood_material.ambient = (Color){.red = 0.39453125f + 0.35f,
+                                         .green = 0.2421875f + 0.35f,
+                                         .blue = 0.1484375f + 0.35f,
                                          .alpha = 1.0f};
   scene->wood_material.diffuse = (Color){.red = 0.01f, .green = 0.01f, .blue = 0.01f, .alpha = 1.0f};
   scene->wood_material.specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
@@ -142,6 +142,7 @@ void draw_scene(const Scene *scene)
   draw_skybox(scene->skybox_texture_id, (vec3){.x = 0.0f, .y = 0.0f, .z = 0.0f}, 500.0f, 500.0f, 500.0f);
   draw_board(scene);
   draw_pieces(scene);
+  draw_board_model(scene);
 }
 
 void reset_scene(Scene *scene)

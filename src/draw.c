@@ -229,7 +229,7 @@ void draw_help(int width, int height)
             "Nyilbillentyuk : figura kivalasztasa",
             "+ / - : fenyero novelese / csokkentese",
             "Egergorgo fel / le : kozelites / tavolitas",
-            "Egergorgo + egermozgatas : kamera forgatasa",
+            "Egerkattintas + egermozgatas : kamera forgatasa",
             "Keszitette : Streba Daniel (H0SRE6)"};
 
     glPushMatrix();
