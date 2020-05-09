@@ -74,14 +74,30 @@ void mouse(int button, int state, int x, int y)
       glutPostRedisplay();
     }
   }
-  else if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
+  else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
   {
     mouse_device.is_down = TRUE;
     mouse_device.x = x;
     mouse_device.y = y;
   }
+  else if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
+  {
+    GLuint index;
+    glReadPixels(x, glutGet(GLUT_WINDOW_HEIGHT) - y - 1, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
 
-  if (state == GLUT_UP)
+    if (index < 1 | scene.current_tile->position.z == 2)
+    {
+      return;
+    }
+
+    int x = index % 10 - 1;
+    int y = (index % 100 - x) / 10 - 1;
+    int z = index / 100 - 1;
+
+    scene.current_tile = &(scene.game_board.tile[x][y][z]);
+  }
+
+  if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
   {
     mouse_device.is_down = FALSE;
   }

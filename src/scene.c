@@ -141,7 +141,12 @@ void draw_scene(const Scene *scene)
 
   draw_skybox(scene->skybox_texture_id, (vec3){.x = 0.0f, .y = 0.0f, .z = 0.0f}, 500.0f, 500.0f, 500.0f);
   draw_board(scene);
+
+  glEnable(GL_STENCIL_TEST);
+  glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
   draw_pieces(scene);
+  glDisable(GL_STENCIL_TEST);
+  
   draw_board_model(scene);
 }
 

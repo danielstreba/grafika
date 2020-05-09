@@ -137,6 +137,8 @@ void draw_pieces(const Scene *scene)
             {
                 if (scene->game_board.tile[i][j][k].is_occupied == TRUE)
                 {
+                    glStencilFunc(GL_ALWAYS, (k+1)*100 + (j+1)*10 + (i+1), -1);
+
                     struct vec3 position = {.x = scene->game_board.tile[i][j][k].position.x,
                                             .y = scene->game_board.tile[i][j][k].position.y,
                                             .z = scene->game_board.tile[i][j][k].position.z};
@@ -217,7 +219,7 @@ void draw_help(int width, int height)
     glDisable(GL_LIGHT0);
     glDisable(GL_TEXTURE_2D);
 
-    char help_text[12][50] =
+    char help_text[12][70] =
         {
             "CHESS - Szamitogepi grafika beadando",
             "W / A / S / D : kamera mozgatasa",
@@ -226,10 +228,10 @@ void draw_help(int width, int height)
             "PAGE UP : kivalasztott figura felemelese",
             "PAGE DOWN : kivalasztott figura letetele",
             "I / J / K / L : kivalasztott figura mozgatasa",
-            "Nyilbillentyuk : figura kivalasztasa",
+            "Jobb egerkattintas vagy nyilbillentyuk : figura kivalasztasa",
             "+ / - : fenyero novelese / csokkentese",
             "Egergorgo fel / le : kozelites / tavolitas",
-            "Egerkattintas + egermozgatas : kamera forgatasa",
+            "Bal egerkattintas + egermozgatas : kamera forgatasa",
             "Keszitette : Streba Daniel (H0SRE6)"};
 
     glPushMatrix();
