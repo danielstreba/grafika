@@ -53,48 +53,48 @@ void init_scene(Scene *scene)
 {
   char *skybox_file_list[] =
       {
-          "assets/textures/bluecloud_up.jpg",
-          "assets/textures/bluecloud_dn.jpg",
-          "assets/textures/bluecloud_lf.jpg",
-          "assets/textures/bluecloud_rt.jpg",
-          "assets/textures/bluecloud_ft.jpg",
-          "assets/textures/bluecloud_bk.jpg"};
+          "assets/textures/skybox/bluecloud_up.jpg",
+          "assets/textures/skybox/bluecloud_dn.jpg",
+          "assets/textures/skybox/bluecloud_lf.jpg",
+          "assets/textures/skybox/bluecloud_rt.jpg",
+          "assets/textures/skybox/bluecloud_ft.jpg",
+          "assets/textures/skybox/bluecloud_bk.jpg"};
 
   char chess_pieces_object_list[6][3][50] =
       {
           {
-              "assets/models/king.obj",
-              "assets/textures/king_dark.jpg",
-              "assets/textures/king_light.jpg",
+              "assets/models/figure/king.obj",
+              "assets/textures/figure/king_dark.jpg",
+              "assets/textures/figure/king_light.jpg",
           },
           {
-              "assets/models/queen.obj",
-              "assets/textures/queen_dark.jpg",
-              "assets/textures/queen_light.jpg",
+              "assets/models/figure/queen.obj",
+              "assets/textures/figure/queen_dark.jpg",
+              "assets/textures/figure/queen_light.jpg",
           },
           {
-              "assets/models/rook.obj",
-              "assets/textures/rook_dark.jpg",
-              "assets/textures/rook_light.jpg",
+              "assets/models/figure/rook.obj",
+              "assets/textures/figure/rook_dark.jpg",
+              "assets/textures/figure/rook_light.jpg",
           },
           {
-              "assets/models/bishop.obj",
-              "assets/textures/bishop_dark.jpg",
-              "assets/textures/bishop_light.jpg",
+              "assets/models/figure/bishop.obj",
+              "assets/textures/figure/bishop_dark.jpg",
+              "assets/textures/figure/bishop_light.jpg",
           },
           {
-              "assets/models/knight.obj",
-              "assets/textures/knight_dark.jpg",
-              "assets/textures/knight_light.jpg",
+              "assets/models/figure/knight.obj",
+              "assets/textures/figure/knight_dark.jpg",
+              "assets/textures/figure/knight_light.jpg",
           },
           {
-              "assets/models/pawn.obj",
-              "assets/textures/pawn_dark.jpg",
-              "assets/textures/pawn_light.jpg",
+              "assets/models/figure/pawn.obj",
+              "assets/textures/figure/pawn_dark.jpg",
+              "assets/textures/figure/pawn_light.jpg",
           }};
 
-  scene->marble_texture_id[DARK] = load_texture("assets/textures/marble_dark.jpg");
-  scene->marble_texture_id[LIGHT] = load_texture("assets/textures/marble_light.jpg");
+  scene->marble_texture_id[DARK] = load_texture("assets/textures/seamless/marble_dark.jpg");
+  scene->marble_texture_id[LIGHT] = load_texture("assets/textures/seamless/marble_light.jpg");
 
   // Marble light material
   scene->material[LIGHT].ambient = (Color){.red = 0.87890625f - 0.25f,
