@@ -26,11 +26,6 @@ void draw_pieces(const Scene *scene);
 void draw_highlight(const vec3 position);
 
 /**
- * Draw string
- */
-void draw_string(const char *string, vec2 position);
-
-/**
  * Draw the help text
  */
 void draw_help(int width, int height);
