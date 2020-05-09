@@ -27,13 +27,14 @@ typedef struct vec2
 } vec2;
 
 /**
- * Color with RGB components
+ * Color with RGBA components
  */
 typedef struct Color
 {
   float red;
   float green;
   float blue;
+  float alpha;
 } Color;
 
 /**

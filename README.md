@@ -2,7 +2,7 @@
 
 ### Textúrák és modellek
 
-[assets.zip (verzió: 0503a)](https://danielstreba.github.io/grafika/assets.zip)  
+[assets.zip (verzió: 0509a)](https://danielstreba.github.io/grafika/assets.zip)  
 A tömörített fájlt a Git repository gyökérjegyzékébe kell kicsomagolni.
 
 ### Fordítás

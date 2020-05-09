@@ -6,14 +6,20 @@
 
 void init_lighting()
 {
-  float ambient_light[] = {0.8f, 0.8f, 0.8f, 0.8f};
-  float diffuse_light[] = {0.9f, 0.9f, 0.9f, 0.9f};
+  float ambient_light[] = {0.5f, 0.5f, 0.5f, 1.0f};
+  float diffuse_light[] = {1.0f, 1.0f, 1.0f, 1.0f};
   float specular_light[] = {1.0f, 1.0f, 1.0f, 1.0f};
-  float position[] = {0.0f, 0.0f, 10.0f, 1.0f};
 
   glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
   glLightfv(GL_LIGHT0, GL_SPECULAR, specular_light);
+
+  init_lighting_position();
+}
+
+void init_lighting_position()
+{
+  float position[] = {-10.0f, -10.0f, 10.0f, 1.0f};
   glLightfv(GL_LIGHT0, GL_POSITION, position);
 }
 
@@ -22,17 +28,20 @@ void init_material(const Material *material)
   float ambient_material_color[] = {
       material->ambient.red,
       material->ambient.green,
-      material->ambient.blue};
+      material->ambient.blue,
+      material->ambient.alpha};
 
   float diffuse_material_color[] = {
       material->diffuse.red,
       material->diffuse.green,
-      material->diffuse.blue};
+      material->diffuse.blue,
+      material->diffuse.alpha};
 
   float specular_material_color[] = {
       material->specular.red,
       material->specular.green,
-      material->specular.blue};
+      material->specular.blue,
+      material->specular.alpha};
 
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_material_color);
   glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_material_color);
@@ -50,8 +59,6 @@ void init_scene(Scene *scene)
           "assets/textures/bluecloud_rt.jpg",
           "assets/textures/bluecloud_ft.jpg",
           "assets/textures/bluecloud_bk.jpg"};
-
-  load_skybox(scene->skybox_texture_id, skybox_file_list);
 
   char chess_pieces_object_list[6][3][50] =
       {
@@ -86,37 +93,51 @@ void init_scene(Scene *scene)
               "assets/textures/pawn_light.jpg",
           }};
 
-  load_chess_pieces(scene->chess_pieces, chess_pieces_object_list);
-
   scene->marble_texture_id[DARK] = load_texture("assets/textures/marble_dark.jpg");
   scene->marble_texture_id[LIGHT] = load_texture("assets/textures/marble_light.jpg");
 
+  // Marble light material
+  scene->material[LIGHT].ambient = (Color){.red = 0.87890625f - 0.25f,
+                                           .green = 0.8671875f - 0.25f,
+                                           .blue = 0.87890625f - 0.25f,
+                                           .alpha = 1.0f};
+  scene->material[LIGHT].diffuse = (Color){.red = 0.8f, .green = 0.8f, .blue = 0.8f, .alpha = 1.0f};
+  scene->material[LIGHT].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
+  scene->material[LIGHT].shininess = 32.0f;
+
+  // Marble dark material
+  scene->material[DARK].ambient = (Color){.red = 0.22265625f + 0.25f,
+                                          .green = 0.2890625f + 0.25f,
+                                          .blue = 0.28515625f + 0.25f,
+                                          .alpha = 1.0f};
+  scene->material[DARK].diffuse = (Color){.red = 0.18275f, .green = 0.17f, .blue = 0.22525f, .alpha = 1.0f};
+  scene->material[DARK].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
+  scene->material[DARK].shininess = 32.0f;
+
+  // Wood material
+  scene->wood_material.ambient = (Color){.red = 0.39453125f + 0.25f,
+                                          .green = 0.2421875f + 0.25f,
+                                          .blue = 0.1484375f + 0.25f,
+                                          .alpha = 1.0f};
+  scene->wood_material.diffuse = (Color){.red = 0.01f, .green = 0.01f, .blue = 0.01f, .alpha = 1.0f};
+  scene->wood_material.specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
+  scene->wood_material.shininess = 32.0f;
+
+  load_skybox(scene->skybox_texture_id, skybox_file_list);
+  load_chess_pieces(scene->chess_pieces, chess_pieces_object_list);
+
   load_model(&(scene->chess_board.model), "assets/models/board.obj");
   scene->chess_board.texture_id = load_texture("assets/textures/board.jpg");
-
-  scene->material.ambient.red = 1.0f;
-  scene->material.ambient.green = 1.0f;
-  scene->material.ambient.blue = 1.0f;
-
-  scene->material.diffuse.red = 0.737911f;
-  scene->material.diffuse.green = 0.644480f;
-  scene->material.diffuse.blue = 0.539480f;
-
-  scene->material.specular.red = 0.5f;
-  scene->material.specular.green = 0.5f;
-  scene->material.specular.blue = 0.5f;
-
-  scene->material.shininess = 1.0f;
+  scene->chess_board.material = scene->material[LIGHT];
 
   init_lighting(scene);
-  init_material(&(scene->material));
 
   reset_scene(scene);
 }
 
 void draw_scene(const Scene *scene)
 {
-  init_material(&(scene->material));
+  init_lighting_position();
 
   draw_skybox(scene->skybox_texture_id, (vec3){.x = 0.0f, .y = 0.0f, .z = 0.0f}, 500.0f, 500.0f, 500.0f);
   draw_board(scene);
@@ -183,6 +204,7 @@ void reset_scene(Scene *scene)
         {
           scene->game_board.tile[i][j][k].object.model = scene->chess_pieces[type].model;
           scene->game_board.tile[i][j][k].object.texture_id = scene->chess_pieces[type].texture_id[color];
+          scene->game_board.tile[i][j][k].object.material = scene->material[color];
           scene->game_board.tile[i][j][k].is_occupied = TRUE;
         }
         else

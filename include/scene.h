@@ -6,21 +6,28 @@
 
 #include <obj/model.h>
 
-#define KING 0
-#define QUEEN 1
-#define ROOK 2
-#define BISHOP 3
-#define KNIGHT 4
-#define PAWN 5
-#define UNDEFINED -1
+enum TYPE
+{
+  UNDEFINED = -1,
+  KING = 0,
+  QUEEN = 1,
+  ROOK = 2,
+  BISHOP = 3,
+  KNIGHT = 4,
+  PAWN = 5
+};
 
-#define DARK 0
-#define LIGHT 1
+enum COLOR
+{
+  DARK = 0,
+  LIGHT = 1
+};
 
 struct Object
 {
   Model model;
   GLuint texture_id;
+  Material material;
 };
 
 static const struct Object EmptyObject;
@@ -46,13 +53,14 @@ struct Board
 typedef struct Scene
 {
   Camera camera;
-  Material material;
+  Material material[2];
 
   struct Board game_board;
   struct Tile *current_tile;
   
   GLuint marble_texture_id[2];
   GLuint skybox_texture_id[6];
+  Material wood_material;
 
   struct ColorableObject chess_pieces[6];
   struct Object chess_board;

@@ -2,6 +2,9 @@
 
 void draw_skybox(GLuint skybox_texture_id[], vec3 position, float width, float height, float length)
 {
+    glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHT0);
+
     // Center the Skybox around the given x,y,z position
     position.x = position.x - width / 2;
     position.y = position.y - height / 2;
@@ -84,12 +87,16 @@ void draw_skybox(GLuint skybox_texture_id[], vec3 position, float width, float h
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(position.x + width, position.y, position.z);
     glEnd();
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 }
 
 void draw_board(const Scene *scene)
 {
     glPushMatrix();
     glTranslatef(-0.5f, -0.5f, -0.02f);
+    init_material(&(scene->material[LIGHT]));
     glBindTexture(GL_TEXTURE_2D, scene->chess_board.texture_id);
     draw_model(&(scene->chess_board.model));
     glPopMatrix();
@@ -101,6 +108,7 @@ void draw_board(const Scene *scene)
         {
             int id = (i + j) % 2;
 
+            init_material(&(scene->material[id]));
             glBindTexture(GL_TEXTURE_2D, scene->marble_texture_id[id]);
             glBegin(GL_QUADS);
             glTexCoord2f(1.0f, 0.0f);
@@ -125,7 +133,9 @@ void draw_pieces(const Scene *scene)
         {
             for (k = 0; k < 2; k++)
             {
-                struct vec3 position = {.x = scene->game_board.tile[i][j][k].position.x,
+                if (scene->game_board.tile[i][j][k].is_occupied == TRUE)
+                {
+                    struct vec3 position = {.x = scene->game_board.tile[i][j][k].position.x,
                                         .y = scene->game_board.tile[i][j][k].position.y,
                                         .z = scene->game_board.tile[i][j][k].position.z};
 
@@ -138,9 +148,11 @@ void draw_pieces(const Scene *scene)
 
                 glPushMatrix();
                 glTranslatef(position.x, position.y, position.z);
+                init_material(&(scene->game_board.tile[i][j][k].object.material));
                 glBindTexture(GL_TEXTURE_2D, scene->game_board.tile[i][j][k].object.texture_id);
                 draw_model(&(scene->game_board.tile[i][j][k].object.model));
                 glPopMatrix();
+                }
             }
         }
     }
@@ -148,6 +160,8 @@ void draw_pieces(const Scene *scene)
 
 void draw_highlight(const vec3 position)
 {
+    glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHT0);
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);
     glBegin(GL_LINES);
@@ -191,10 +205,16 @@ void draw_highlight(const vec3 position)
     glColor3f(1.0f, 1.0f, 1.0f);
     glDisable(GL_COLOR_MATERIAL);
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 }
 
 void draw_help(int width, int height)
 {
+    glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHT0);
+    glDisable(GL_TEXTURE_2D);
+
     char help_text[12][50] =
         {
             "CHESS - Szamitogepi grafika beadando",
@@ -237,10 +257,16 @@ void draw_help(int width, int height)
         glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
     }
 
+    glColor3f(1.0f, 1.0f, 1.0f);
+
     glDisable(GL_COLOR_MATERIAL);
 
     glPopMatrix();
 
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 }
