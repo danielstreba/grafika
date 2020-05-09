@@ -94,13 +94,6 @@ void draw_skybox(const GLuint skybox_texture_id[], vec3 position, float width, f
 
 void draw_board(const Scene *scene)
 {
-    glPushMatrix();
-    glTranslatef(-0.5f, -0.5f, -0.02f);
-    init_material(&(scene->material[LIGHT]));
-    glBindTexture(GL_TEXTURE_2D, scene->chess_board.texture_id);
-    draw_model(&(scene->chess_board.model));
-    glPopMatrix();
-
     int i, j;
     for (i = 0; i < 8; i++)
     {
@@ -122,6 +115,15 @@ void draw_board(const Scene *scene)
             glEnd();
         }
     }
+}
+
+void draw_board_model(const Scene *scene)
+{
+    glTranslatef(-0.5f, -0.5f, -0.02f);
+    init_material(&(scene->wood_material));
+    glBindTexture(GL_TEXTURE_2D, scene->chess_board.texture_id);
+    draw_model(&(scene->chess_board.model));
+    glPopMatrix();
 }
 
 void draw_pieces(const Scene *scene)

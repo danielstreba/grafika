@@ -21,6 +21,11 @@ void draw_board(const Scene *scene);
 void draw_pieces(const Scene *scene);
 
 /**
+ * Draw the chess board model
+ */
+void draw_board_model(const Scene *scene);
+
+/**
  * Draw the highlight to currently selected chess piece
  */
 void draw_highlight(const vec3 position);
