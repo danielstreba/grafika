@@ -257,6 +257,8 @@ void draw_help(int width, int height)
         glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
     }
 
+    glLineWidth(1.0f);
+
     glColor3f(1.0f, 1.0f, 1.0f);
 
     glDisable(GL_COLOR_MATERIAL);
