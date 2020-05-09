@@ -8,7 +8,7 @@
 /**
  * Draw the skybox
  */
-void draw_skybox(GLuint skybox_texture_id[], vec3 position, float width, float height, float length);
+void draw_skybox(const GLuint skybox_texture_id[], vec3 position, float width, float height, float length);
 
 /**
  * Draw the chess board

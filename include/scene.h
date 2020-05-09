@@ -77,6 +77,11 @@ void init_scene(Scene *scene);
 void init_lighting();
 
 /**
+ * Set the lighting position of the scene
+ */
+void set_lighting_position();
+
+/**
  * Initialize the current material
  */
 void init_material(const Material *material);

@@ -2,7 +2,7 @@
 
 #include <SOIL/SOIL.h>
 
-GLuint load_texture(char *filename)
+GLuint load_texture(const char *filename)
 {
   // Fixes most of black lines in the edge of skybox
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

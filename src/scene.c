@@ -14,10 +14,10 @@ void init_lighting()
   glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
   glLightfv(GL_LIGHT0, GL_SPECULAR, specular_light);
 
-  init_lighting_position();
+  set_lighting_position();
 }
 
-void init_lighting_position()
+void set_lighting_position()
 {
   float position[] = {-10.0f, -10.0f, 10.0f, 1.0f};
   glLightfv(GL_LIGHT0, GL_POSITION, position);
@@ -137,7 +137,7 @@ void init_scene(Scene *scene)
 
 void draw_scene(const Scene *scene)
 {
-  init_lighting_position();
+  set_lighting_position();
 
   draw_skybox(scene->skybox_texture_id, (vec3){.x = 0.0f, .y = 0.0f, .z = 0.0f}, 500.0f, 500.0f, 500.0f);
   draw_board(scene);
