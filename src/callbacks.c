@@ -396,8 +396,8 @@ void keyboard_special(int key, int x, int y)
     }
     break;
   }
-  
-  glutPostRedisplay();
+
+    glutPostRedisplay();
   }
 }
 

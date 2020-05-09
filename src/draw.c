@@ -138,22 +138,22 @@ void draw_pieces(const Scene *scene)
                 if (scene->game_board.tile[i][j][k].is_occupied == TRUE)
                 {
                     struct vec3 position = {.x = scene->game_board.tile[i][j][k].position.x,
-                                        .y = scene->game_board.tile[i][j][k].position.y,
-                                        .z = scene->game_board.tile[i][j][k].position.z};
+                                            .y = scene->game_board.tile[i][j][k].position.y,
+                                            .z = scene->game_board.tile[i][j][k].position.z};
 
-                if (scene->current_tile->position.x == position.x &&
-                    scene->current_tile->position.y == position.y &&
-                    scene->current_tile->position.z == position.z)
-                {
-                    draw_highlight(position);
-                }
+                    if (scene->current_tile->position.x == position.x &&
+                        scene->current_tile->position.y == position.y &&
+                        scene->current_tile->position.z == position.z)
+                    {
+                        draw_highlight(position);
+                    }
 
-                glPushMatrix();
-                glTranslatef(position.x, position.y, position.z);
-                init_material(&(scene->game_board.tile[i][j][k].object.material));
-                glBindTexture(GL_TEXTURE_2D, scene->game_board.tile[i][j][k].object.texture_id);
-                draw_model(&(scene->game_board.tile[i][j][k].object.model));
-                glPopMatrix();
+                    glPushMatrix();
+                    glTranslatef(position.x, position.y, position.z);
+                    init_material(&(scene->game_board.tile[i][j][k].object.material));
+                    glBindTexture(GL_TEXTURE_2D, scene->game_board.tile[i][j][k].object.texture_id);
+                    draw_model(&(scene->game_board.tile[i][j][k].object.model));
+                    glPopMatrix();
                 }
             }
         }
