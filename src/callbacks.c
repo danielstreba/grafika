@@ -1,4 +1,6 @@
 #include "callbacks.h"
+#include "draw.h"
+
 #include <stdio.h>
 
 struct
@@ -21,8 +23,7 @@ void display()
 
   if (is_help_displayed)
   {
-    glBindTexture(GL_TEXTURE_2D, scene.help_texture_id);
-    display_help();
+    draw_help(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
   }
 
   glutSwapBuffers();

@@ -53,7 +53,6 @@ typedef struct Scene
   
   GLuint marble_texture_id[2];
   GLuint skybox_texture_id[6];
-  GLuint help_texture_id;
 
   struct ColorableObject chess_pieces[6];
   struct Object chess_board;

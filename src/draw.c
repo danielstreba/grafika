@@ -192,3 +192,55 @@ void draw_highlight(const vec3 position)
     glDisable(GL_COLOR_MATERIAL);
     glEnable(GL_TEXTURE_2D);
 }
+
+void draw_help(int width, int height)
+{
+    char help_text[12][50] =
+        {
+            "CHESS - Szamitogepi grafika beadando",
+            "W / A / S / D : kamera mozgatasa",
+            "F1 : sugo megnyitasa / bezarasa",
+            "F2 : kezdoallapot visszaallitasa",
+            "PAGE UP : kivalasztott figura felemelese",
+            "PAGE DOWN : kivalasztott figura letetele",
+            "I / J / K / L : kivalasztott figura mozgatasa",
+            "Nyilbillentyuk : figura kivalasztasa",
+            "+ / - : fenyero novelese / csokkentese",
+            "Egergorgo fel / le : kozelites / tavolitas",
+            "Egergorgo + egermozgatas : kamera forgatasa",
+            "Keszitette : Streba Daniel (H0SRE6)"};
+
+    glPushMatrix();
+    glLoadIdentity();
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+    gluOrtho2D(0, width, -height, 0);
+    glEnable(GL_COLOR_MATERIAL);
+
+    glScalef(0.2f, 0.15f, 0.15f);
+    glColor3f(1.0f, 1.0f, 0.0f);
+
+    glLineWidth(2.0f);
+
+    int i;
+    float length = 0;
+    for (i = 0; i < 12; i++)
+    {
+        float x = (i == 0 || i == 11) ? 100.0f : 300.0f;
+        float y = 200.0f;
+        glTranslatef(-length + x, -y, 0);
+        length = glutStrokeLengthf(GLUT_STROKE_ROMAN, help_text[i]) + x;
+
+        glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
+    }
+
+    glDisable(GL_COLOR_MATERIAL);
+
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+}

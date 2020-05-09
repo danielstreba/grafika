@@ -18,6 +18,15 @@ typedef struct vec3
 } vec3;
 
 /**
+ * Two dimensional vector
+ */
+typedef struct vec2
+{
+  float x;
+  float y;
+} vec2;
+
+/**
  * Color with RGB components
  */
 typedef struct Color

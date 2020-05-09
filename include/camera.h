@@ -49,9 +49,4 @@ void set_camera_speed(Camera *camera, double speed);
  */
 void set_camera_side_speed(Camera *camera, double speed);
 
-/**
-  * Show the help screen
-  */
-void display_help();
-
 #endif /* CAMERA_H */
