@@ -1,5 +1,10 @@
-windows:
-	gcc -Iinclude/ src/* -lSOIL -lobj -lglut32 -lopengl32 -lglu32 -lm -o chess.exe -Wall -Wextra -Wpedantic
+FLAGS:=
 
-linux:
-	gcc -Iinclude/ src/* -lSOIL -lobj -lGL -lGLU -lglut -lm -o chess -Wall -Wextra -Wpedantic
+ifeq ($(OS),Windows_NT)
+	FLAGS=-lglut32 -lopengl32 -lglu32
+else
+	FLAGS=-lGL -lGLU -lglut
+endif
+
+all:
+	gcc -Iinclude/ src/* -lSOIL -lobj $(FLAGS) -lm -o chess -Wall -Wextra -Wpedantic

@@ -7,7 +7,7 @@ A tömörített fájlt a Git repository gyökérjegyzékébe kell kicsomagolni.
 
 ### Fordítás
 
-A `Makefile`-ban található 2 darab konfiguráció. Windows alatt a `make windows`, illetve Linux alatt a `make linux` paranccsal fordítható a program.
+Windows és Linux alatt is a `make` paranccsal fordítható a program. A `Makefile`-ban található konfiguráció felismeri a operációs rendszert, és az alapján módosítja a használt kapcsolókat.
 
 ### Használat
 
