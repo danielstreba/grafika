@@ -7,4 +7,6 @@ else
 endif
 
 all:
-	gcc -Iinclude/ src/* -lSOIL -lobj $(FLAGS) -lm -o chess -Wall -Wextra -Wpedantic
+	gcc -Iinclude/ src/* -lSOIL -lobj $(FLAGS) -lm -o chess
+
+# -Wall -Wextra -Wpedantic
