@@ -252,7 +252,7 @@ void draw_help(int width, int height)
         float x = (i == 0 || i == 11) ? 100.0f : 300.0f;
         float y = 200.0f;
         glTranslatef(-length + x, -y, 0);
-        length = glutStrokeLengthf(GLUT_STROKE_ROMAN, help_text[i]) + x;
+        length = glutStrokeLength(GLUT_STROKE_ROMAN, help_text[i]) + x;
 
         glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
     }
