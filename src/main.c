@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
   glutInit(&argc, argv);
 
   glutInitWindowSize(1280, 720);
-  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_MULTISAMPLE);
 
   window = glutCreateWindow("Chess - Streba Daniel (H0SRE6)");
   glutSetWindow(window);
