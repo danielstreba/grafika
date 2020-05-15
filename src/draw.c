@@ -248,7 +248,6 @@ void draw_help(int width, int height)
     glEnable(GL_COLOR_MATERIAL);
 
     glScalef(0.2f, 0.15f, 0.15f);
-    glColor3f(1.0f, 1.0f, 0.0f);
 
     glLineWidth(2.0f);
 
@@ -261,6 +260,25 @@ void draw_help(int width, int height)
         glTranslatef(-length + x, -y, 0);
         length = glutStrokeLength(GLUT_STROKE_ROMAN, help_text[i]) + x;
 
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glPushMatrix();
+        glTranslatef(10, 0, 0);
+        glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(-10, 0, 0);
+        glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(0, 10, 0);
+        glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(0, -10, 0);
+        glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
+        glPopMatrix();
+
+        glColor3f(1.0f, 1.0f, 0.0f);
         glutStrokeString(GLUT_STROKE_ROMAN, help_text[i]);
     }
 
