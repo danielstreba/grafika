@@ -102,7 +102,7 @@ void init_scene(Scene *scene)
                                            .blue = 0.87890625f - 0.25f,
                                            .alpha = 0.8f};
   scene->material[LIGHT].diffuse = (Color){.red = 0.8f, .green = 0.8f, .blue = 0.8f, .alpha = 0.8f};
-  scene->material[LIGHT].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 0.8f};
+  scene->material[LIGHT].specular = (Color){.red = 1.0f, .green = 1.0f, .blue = 1.0f, .alpha = 1.0f};
   scene->material[LIGHT].shininess = 32.0f;
 
   // Marble dark material
@@ -111,7 +111,7 @@ void init_scene(Scene *scene)
                                           .blue = 0.28515625f + 0.25f,
                                           .alpha = 0.8f};
   scene->material[DARK].diffuse = (Color){.red = 0.18275f, .green = 0.17f, .blue = 0.22525f, .alpha = 0.8f};
-  scene->material[DARK].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 0.8f};
+  scene->material[DARK].specular = (Color){.red = 1.0f, .green = 1.0f, .blue = 1.0f, .alpha = 1.0f};
   scene->material[DARK].shininess = 32.0f;
 
   // Wood material
@@ -120,7 +120,7 @@ void init_scene(Scene *scene)
                                          .blue = 0.1484375f + 0.35f,
                                          .alpha = 1.0f};
   scene->wood_material.diffuse = (Color){.red = 0.01f, .green = 0.01f, .blue = 0.01f, .alpha = 1.0f};
-  scene->wood_material.specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
+  scene->wood_material.specular = (Color){.red = 1.0f, .green = 1.0f, .blue = 1.0f, .alpha = 1.0f};
   scene->wood_material.shininess = 32.0f;
 
   load_skybox(scene->skybox_texture_id, skybox_file_list);
