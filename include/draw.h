@@ -16,9 +16,14 @@ void draw_skybox(const GLuint skybox_texture_id[], vec3 position, float width, f
 void draw_board(const Scene *scene);
 
 /**
+ * Draw the chess board model
+ */
+void draw_board_model(const Scene *scene);
+
+/**
  * Draw the chess pieces
  */
-void draw_pieces(const Scene *scene);
+void draw_pieces(const Scene *scene, const int reflection);
 
 /**
  * Draw the chess board model

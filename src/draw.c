@@ -126,7 +126,7 @@ void draw_board_model(const Scene *scene)
     glPopMatrix();
 }
 
-void draw_pieces(const Scene *scene)
+void draw_pieces(const Scene *scene, const int is_reflection)
 {
     int i, j, k;
     for (i = 0; i < 8; i++)
@@ -137,7 +137,10 @@ void draw_pieces(const Scene *scene)
             {
                 if (scene->game_board.tile[i][j][k].is_occupied == TRUE)
                 {
-                    glStencilFunc(GL_ALWAYS, (k+1)*100 + (j+1)*10 + (i+1), -1);
+                    if (!is_reflection)
+                    {
+                        glStencilFunc(GL_ALWAYS, (k+1)*100 + (j+1)*10 + (i+1), -1);
+                    }
 
                     struct vec3 position = {.x = scene->game_board.tile[i][j][k].position.x,
                                             .y = scene->game_board.tile[i][j][k].position.y,

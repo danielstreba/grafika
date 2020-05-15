@@ -100,18 +100,18 @@ void init_scene(Scene *scene)
   scene->material[LIGHT].ambient = (Color){.red = 0.87890625f - 0.25f,
                                            .green = 0.8671875f - 0.25f,
                                            .blue = 0.87890625f - 0.25f,
-                                           .alpha = 1.0f};
-  scene->material[LIGHT].diffuse = (Color){.red = 0.8f, .green = 0.8f, .blue = 0.8f, .alpha = 1.0f};
-  scene->material[LIGHT].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
+                                           .alpha = 0.8f};
+  scene->material[LIGHT].diffuse = (Color){.red = 0.8f, .green = 0.8f, .blue = 0.8f, .alpha = 0.8f};
+  scene->material[LIGHT].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 0.8f};
   scene->material[LIGHT].shininess = 32.0f;
 
   // Marble dark material
   scene->material[DARK].ambient = (Color){.red = 0.22265625f + 0.25f,
                                           .green = 0.2890625f + 0.25f,
                                           .blue = 0.28515625f + 0.25f,
-                                          .alpha = 1.0f};
-  scene->material[DARK].diffuse = (Color){.red = 0.18275f, .green = 0.17f, .blue = 0.22525f, .alpha = 1.0f};
-  scene->material[DARK].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 1.0f};
+                                          .alpha = 0.8f};
+  scene->material[DARK].diffuse = (Color){.red = 0.18275f, .green = 0.17f, .blue = 0.22525f, .alpha = 0.8f};
+  scene->material[DARK].specular = (Color){.red = 0.5f, .green = 0.5f, .blue = 0.5f, .alpha = 0.8f};
   scene->material[DARK].shininess = 32.0f;
 
   // Wood material
@@ -140,13 +140,45 @@ void draw_scene(const Scene *scene)
   set_lighting_position();
 
   draw_skybox(scene->skybox_texture_id, (vec3){.x = 0.0f, .y = 0.0f, .z = 0.0f}, 500.0f, 500.0f, 500.0f);
-  draw_board(scene);
 
+  if (scene->camera.rotation.x < 9.0f || scene->camera.rotation.x > 175.0f)
+  {
+    glDisable(GL_DEPTH_TEST);
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+    glStencilFunc(GL_ALWAYS, 1, 0xffffffff);
+
+    draw_board(scene);
+
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    glEnable(GL_DEPTH_TEST);
+
+    glStencilFunc(GL_EQUAL, 1, 0xffffffff);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+
+    glPushMatrix();
+    glScalef(1.0f, 1.0f, -1.0f);
+    glTranslatef(0.0f, 0.0f, 0.02f);
+    set_lighting_position();
+    draw_pieces(scene, TRUE);
+    glPopMatrix();
+
+    glDisable(GL_STENCIL_TEST);
+
+    set_lighting_position();
+  }
+
+  glEnable(GL_BLEND);
+  draw_board(scene);
+  glDisable(GL_BLEND);
+
+  glClearStencil(0);
   glEnable(GL_STENCIL_TEST);
   glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-  draw_pieces(scene);
+  draw_pieces(scene, FALSE);
   glDisable(GL_STENCIL_TEST);
-  
   draw_board_model(scene);
 }
 

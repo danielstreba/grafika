@@ -18,7 +18,12 @@ void init_opengl()
   glEnable(GL_DEPTH_TEST);
   glClearDepth(1.0f);
 
+  glDepthFunc(GL_LEQUAL);
+  glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
   glEnable(GL_TEXTURE_2D);
+
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
